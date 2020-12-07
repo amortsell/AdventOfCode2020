@@ -1,7 +1,7 @@
 ﻿$passports = @()
 $new = $true
 $passport = $null
-Get-Content -Path 'C:\Users\amortsel\OneDrive - Capgemini\VTG\passports.txt' | % {
+Get-Content -Path '.\passports day 4.txt' | % {
     if ($new) {
         if ($null -ne $passport) {
             $passports += $passport
@@ -71,29 +71,34 @@ for ($i = 0; $i -lt $passports.length; $i++) {
             continue
         }
 
+        $isValid = $true
         switch ($Matches[2]) {
             "in" {
                 try {
                     $length = [int]::Parse($Matches[1])
                 } catch {
-                    continue
+                    $isValid = $false
                 }
 
                 if ($length -lt 59 -or $length -gt 76) {
-                    continue
+                    $isValid = $false
                 }
             }
             "cm" {
                 try {
                     $length = [int]::Parse($Matches[1])
                 } catch {
-                    continue
+                    $isValid = $false
                 }
 
                 if ($length -lt 150 -or $length -gt 193) {
-                    continue
+                    $isValid = $false
                 }
             }
+        }
+
+        if (!$isValid) {
+          continue
         }
 
         if (($passport.hcl -match "#[0-9|a-f]{6}") -eq $false) {

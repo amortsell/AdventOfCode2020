@@ -30,16 +30,8 @@ Get-Content -Path '.\boardingpasses day 5.txt' | % {
     }
 }
 
-$seats = $seats | Sort-Object -Descending -Property 'ID' 
-$seats[0].ID
-
-$i = 0
-for ($i = 1; $i -lt $seats.Length -1; $i++) {
-    if ($seats[$i].ID -eq $seats[$i - 1].ID - 2) {
-        $seats[$i].ID + 1
-        break;
-    }
-}
+$seat = $seats | Sort-Object -Descending -Property 'ID' | Select-Object -First 1
+$seat.ID
 
 
 

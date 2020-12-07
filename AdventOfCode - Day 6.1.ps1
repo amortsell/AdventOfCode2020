@@ -27,17 +27,13 @@ Get-Content -Path '.\customanswers day 6.txt' | % {
     }
 }
 
-$count1 = 0
-$count2 = 0
+$count = 0
 $groups | % {
     $group = $_
-    $count1 += ($group | Get-Member -MemberType NoteProperty | ?  { $_.Name -ne "NumberOfPeople" }).Count
-    $answeredByAll = ($group | Get-Member -MemberType NoteProperty | ? { $_.Name -ne "NumberOfPeople" -and $group.($_.Name) -eq $group.NumberOfPeople })
-    $count2 += $answeredByAll.Count
+    $count += ($group | Get-Member -MemberType NoteProperty | ?  { $_.Name -ne "NumberOfPeople" }).Count
 }
 
-$count1
-$count2
+$count
 
 
 
